@@ -2,14 +2,16 @@
  * @Author: Vitaly Batushev
  * @Date: 2017-03-23 22:48:53
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 19:39:45
+ * @Last Modified time: 2017-05-05 21:45:49
  */
 #target indesign
 #include "include/json2.jsx"
+$.localization = true;
 
-var scriptVersion = "1.2";
+var scriptVersion = "1.3";
 
 var iWai = (function(){
+    #include "include/Localization.jsx"
     #include "include/ConfigClass.jsx"
     #include "include/Dialog.jsx"
 
@@ -95,7 +97,9 @@ var iWai = (function(){
         while (lock.exists) {
             $.sleep(100);
         }
-        image.itemLink.relink(output_file);
+        if (output_file.exists) {
+            image.itemLink.relink(output_file);
+        }
     }
 
     /**

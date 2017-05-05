@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 22:18:34
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 19:42:25
+ * @Last Modified time: 2017-05-05 21:01:52
  */
 
 /**
@@ -42,10 +42,15 @@ function dlgPreferences(title) {
     win.text = title;
     win.defaultElement = win.btns.ok;
 
-    win.dlg.transform.left.mode.add("item", "Авто-убрать шум и увеличить");
-    win.dlg.transform.left.mode.add("item", "Убрать шум и увеличить");
-    win.dlg.transform.left.mode.add("item", "Только увеличить");
-    win.dlg.transform.left.mode.add("item", "Только убрать шум");
+    win.info.info.text = localize(Locale.batushev) + ", 2017 | https://szam5.com";
+
+    win.dlg.transform.text = localize(Locale.transform);
+
+    win.dlg.transform.left.mode_label.text = localize(Locale.mode);
+    win.dlg.transform.left.mode.add("item", localize(Locale.mode_auto));
+    win.dlg.transform.left.mode.add("item", localize(Locale.mode_noise_resize));
+    win.dlg.transform.left.mode.add("item", localize(Locale.mode_resize));
+    win.dlg.transform.left.mode.add("item", localize(Locale.mode_noise));
     switch (Config.mode) {
         case "noise_scale":
             win.dlg.transform.left.mode.selection = 1;
@@ -60,15 +65,13 @@ function dlgPreferences(title) {
             win.dlg.transform.left.mode.selection = 0;
     }
 
-    win.dlg.transform.left.profiles.add("item", "2D изображ. (Профиль UpRGB)");
-    win.dlg.transform.left.profiles.add("item", "Фото (Профиль UpPhoto)");
-    win.dlg.transform.left.profiles.add("item", "2D изображ. (Профиль RGB)");
-    win.dlg.transform.left.profiles.add("item", "Фотография, Аниме");
-    win.dlg.transform.left.profiles.add("item", "2D изображ. (Профиль Y)");
+    win.dlg.transform.left.profiles_label.text = localize(Locale.profiles);
+    win.dlg.transform.left.profiles.add("item", localize(Locale.profiles_1));
+    win.dlg.transform.left.profiles.add("item", localize(Locale.profiles_2));
+    win.dlg.transform.left.profiles.add("item", localize(Locale.profiles_3));
+    win.dlg.transform.left.profiles.add("item", localize(Locale.profiles_4));
+    win.dlg.transform.left.profiles.add("item", localize(Locale.profiles_5));
     switch (Config.profiles) {
-        case "upconv_7_anime_style_art_rgb":
-            win.dlg.transform.left.profiles.selection = 0;
-            break;
         case "upconv_7_photo":
             win.dlg.transform.left.profiles.selection = 1;
             break;
@@ -78,16 +81,22 @@ function dlgPreferences(title) {
         case "photo":
             win.dlg.transform.left.profiles.selection = 3;
             break;
-        default:
+        case "anime_style_art":
             win.dlg.transform.left.profiles.selection = 4;
+            break;
+        case "upconv_7_anime_style_art_rgb":
+        default:
+            win.dlg.transform.left.profiles.selection = 0;
     }
 
+    win.dlg.transform.right.noise_label.text = localize(Locale.noise);
     win.dlg.transform.right.noise.add("item", 0);
     win.dlg.transform.right.noise.add("item", 1);
     win.dlg.transform.right.noise.add("item", 2);
     win.dlg.transform.right.noise.add("item", 3);
     win.dlg.transform.right.noise.selection = parseInt(Config.noise);
 
+    win.dlg.transform.right.block_label.text = localize(Locale.block);
     win.dlg.transform.right.block.add("item", 64);
     win.dlg.transform.right.block.add("item", 100);
     win.dlg.transform.right.block.add("item", 128);
@@ -125,6 +134,9 @@ function dlgPreferences(title) {
         default:
             win.dlg.transform.right.block.selection = 0;
     }
+
+    win.btns.ok.text = localize(Locale.ok);
+    win.btns.cancel.text = localize(Locale.cancel);
 
     win.btns.cancel.onClick = function () {
         win.close();

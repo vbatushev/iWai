@@ -3,7 +3,7 @@
     "maxppi": 200,
     "minppi": 50,
     "mode": "auto_scale",
-    "noise": 2,
-    "profiles": "anime_style_art",
+    "noise": 0,
+    "profiles": "upconv_7_anime_style_art_rgb",
     "block": 64
 }

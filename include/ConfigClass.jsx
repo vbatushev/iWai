@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 21:42:43
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 19:26:11
+ * @Last Modified time: 2017-05-05 21:40:54
  */
 
 /**
@@ -17,8 +17,8 @@ var ConfigClass = (function(){
         minppi: 50,
         mode: "auto_scale",
         noise: 0,
-        profiles: "anime_style_art",
-        block: 64
+        profiles: "upconv_7_anime_style_art_rgb",
+        block: 64,
     }
 
     /**
