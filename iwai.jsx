@@ -2,7 +2,7 @@
  * @Author: Vitaly Batushev
  * @Date: 2017-03-23 22:48:53
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-01 23:23:14
+ * @Last Modified time: 2017-05-05 19:17:29
  */
 #target indesign
 #include "include/json2.jsx"
@@ -89,6 +89,7 @@ var iWai = (function(){
         var keys = common_keys + " -s " + scale + " -i " + "\"" + input_file.fsName  + "\"" + " -o " + "\"" + output_file.fsName + "\"";
         var cmd_string = "\"" + cuipath.fsName + "\"" + keys + "\ndel " + "\"" + lock.fsName + "\"\n";
         var cmd_file = File(Folder.temp.fsName + "/wai.cmd");
+        cmd_file.encoding = "CP866";
         cmd_file.open("w"); cmd_file.write(cmd_string); cmd_file.close();
         cmd_file.execute();
         while (lock.exists) {
