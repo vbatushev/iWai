@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 22:18:34
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-01 23:24:34
+ * @Last Modified time: 2017-05-05 19:42:25
  */
 
 /**
@@ -32,6 +32,9 @@ function dlgPreferences(title) {
             btns: Group { orientation: 'row', alignChildren: ['fill', 'fill'], spacing:10, \
                 ok: Button { name: 'ok', helpTip:'Запуск', text:'Запуск', alignment:'center', enabled:true }, \
                 cancel: Button { text:'Отменить', name: 'cancel', alignment:'center' }, \
+            }, \
+            info: Group { orientation: 'row', alignChildren: ['center', 'fill'], spacing:10, \
+                info: StaticText { text: 'Vitaly Batushev, 2017 | https://szam5.com' } \
             } \
         }";
 

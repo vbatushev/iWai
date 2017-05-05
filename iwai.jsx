@@ -2,12 +2,12 @@
  * @Author: Vitaly Batushev
  * @Date: 2017-03-23 22:48:53
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 19:17:29
+ * @Last Modified time: 2017-05-05 19:39:45
  */
 #target indesign
 #include "include/json2.jsx"
 
-var scriptVersion = "1.1";
+var scriptVersion = "1.2";
 
 var iWai = (function(){
     #include "include/ConfigClass.jsx"
@@ -26,7 +26,7 @@ var iWai = (function(){
         cuipath = File(Config.waifu2x_path);
         if (!cuipath.exists) { alert("waifu2x-caffe не найден!"); exit(); }
         if (!hide) {
-            var dlg = new dlgPreferences("waifu2x-caffe для Adobe InDesign " + scriptVersion);
+            var dlg = new dlgPreferences("  waifu2x-caffe для Adobe InDesign " + scriptVersion);
         } else {
             Config.write();
         }

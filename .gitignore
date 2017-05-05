@@ -1,2 +1,5 @@
 *.indd
-.images
+images
+images/*
+*.jpg
+*.png

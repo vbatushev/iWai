@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 21:42:43
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-01 23:23:08
+ * @Last Modified time: 2017-05-05 19:26:11
  */
 
 /**
@@ -46,7 +46,7 @@ var ConfigClass = (function(){
     var write = function() {
         config_file.encoding = "UTF8";
         config_file.open("w");
-        config_file.write(JSON.stringify(Config));
+        config_file.write(JSON.stringify(Config, undefined,4));
         config_file.close();
     }
 
