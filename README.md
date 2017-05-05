@@ -2,7 +2,7 @@
 
 Скрипт для Adobe InDesign для обработки изображений с помощью [waifu2x-caffe](https://github.com/lltcggie/waifu2x-caffe/)
 
-*Только для Windows*
+**Только для Windows**
 
 Пример улучшения изображения с помощью waifu2x-caffe:
 
