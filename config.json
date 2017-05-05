@@ -1,1 +1,9 @@
-{"waifu2x_path":"~/Documents/waifu2x-caffe/waifu2x-caffe-cui.exe","maxppi":200,"minppi":50,"mode":"noise_scale","noise":3,"profiles":"anime_style_art","block":100}
+{
+    "waifu2x_path":"~/Documents/waifu2x-caffe/waifu2x-caffe-cui.exe",
+    "maxppi":200,
+    "minppi":50,
+    "mode":"noise_scale",
+    "noise":3,
+    "profiles":"anime_style_art",
+    "block":100
+}
