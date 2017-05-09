@@ -1,3 +1,5 @@
 *.indd
+*.jsxbin
+config.json
 images
 images/*

@@ -16,5 +16,7 @@
     ok: { ru: "Запуск", en: "Run", es: ""},
     cancel: { ru: "Отменить", en: "Cancel", es: ""},
     notfound: { ru: "не найден", en: "not found"},
-    batushev: { ru: "Виталий Батушев", en: "Vitaly Batushev" }
+    batushev: { ru: "Виталий Батушев", en: "Vitaly Batushev" },
+    waireplace: { ru: "Вы хотите заново обработать данное изображение?", en: "Do you want to re-process this image?" },
+    attention: { ru: "Внимание!", en: "Attention" }
 }

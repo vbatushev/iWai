@@ -2,13 +2,13 @@
  * @Author: Vitaly Batushev
  * @Date: 2017-03-23 22:48:53
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 21:45:49
+ * @Last Modified time: 2017-05-09 13:26:39
  */
 #target indesign
 #include "include/json2.jsx"
 $.localization = true;
 
-var scriptVersion = "1.3";
+var scriptVersion = "1.4";
 
 var iWai = (function(){
     #include "include/Localization.jsx"
@@ -20,19 +20,19 @@ var iWai = (function(){
 
     /**
      * Основная функция скрипта
-     * @param {Boolean} hide   Скрывать ли диалоговое окно
+     * @param {Boolean} quiet   Скрывать ли диалоговое окно
      */
-    var main = function(hide) {
-        var hide = !!hide || false;
+    var main = function (quiet) {
+        var quiet = !!quiet || false;
         ConfigClass.read();
         cuipath = File(Config.waifu2x_path);
         if (!cuipath.exists) { alert("waifu2x-caffe не найден!"); exit(); }
-        if (!hide) {
+        if (!quiet) {
             var dlg = new dlgPreferences("  waifu2x-caffe для Adobe InDesign " + scriptVersion);
         } else {
-            Config.write();
+            ConfigClass.write();
         }
-        common_keys = " -p cpu -m " + Config.mode + " -n " + Config.noise + " -q 100 --crop_size " + Config.block;
+        common_keys = " -p " + Config.processor + " -m " + Config.mode + " -n " + Config.noise + " -q 100 --crop_size " + Config.block;
         var model_dir = Folder(cuipath.parent.absoluteURI + "/models/" + Config.profiles);
         if (model_dir.exists) {
             common_keys += " --model_dir " + "\"" + model_dir.fsName + "\"";
@@ -42,11 +42,30 @@ var iWai = (function(){
             find();
         } else {
             if (app.activeDocument.selection[0].images.length == 1) {
-                imageProcess(app.activeDocument.selection[0].images[0]);
+                if (testImage(app.activeDocument.selection[0].images[0], true)) {
+                    imageProcess(app.activeDocument.selection[0].images[0]);
+                }
             } else {
                 find();
             }
         }
+    }
+
+    /**
+     * Проверка имени изображения на наличие в нем суффикса .wai
+     *
+     * @param {any} image
+     * @returns
+     */
+    function testImage(image, question) {
+        if (image.itemLink.name.indexOf(".wai.") > -1) {
+            if (question) {
+                return confirm(localize(Locale.waireplace), false, localize(Locale.attention));
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -72,7 +91,9 @@ var iWai = (function(){
      */
     function process(){
         for (var a = 0, l = images.length; a < l; a++) {
-            imageProcess(images[a]);
+            if (testImage(images[a], false)) {
+                imageProcess(images[a]);
+            }
         }
     }
 
@@ -118,5 +139,3 @@ var iWai = (function(){
         cuipath: cuipath
     }
 })();
-
-iWai.run();

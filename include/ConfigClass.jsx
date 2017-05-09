@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 21:42:43
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-05 21:40:54
+ * @Last Modified time: 2017-05-09 13:21:00
  */
 
 /**
@@ -19,6 +19,7 @@ var ConfigClass = (function(){
         noise: 0,
         profiles: "upconv_7_anime_style_art_rgb",
         block: 64,
+        processor: "cpu"
     }
 
     /**
@@ -35,6 +36,11 @@ var ConfigClass = (function(){
         for (var param in default_config) {
             if (typeof config_json[param] == "undefined") {
                 config_json[param] = default_config[param];
+            }
+            if (param == "processor") {
+                if (config_json[param] != "cpu" && config_json[param] != "gpu") {
+                    config_json[param] = "cpu";
+                }
             }
         }
         Config = config_json;
