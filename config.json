@@ -1,9 +1,0 @@
-{
-    "waifu2x_path": "~/Documents/waifu2x-caffe/waifu2x-caffe-cui.exe",
-    "maxppi": 200,
-    "minppi": 50,
-    "mode": "auto_scale",
-    "noise": 0,
-    "profiles": "upconv_7_anime_style_art_rgb",
-    "block": 64
-}
