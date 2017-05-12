@@ -2,7 +2,7 @@
 * @Author: Vitaly Batushev
 * @Date: 2017-05-01 21:42:43
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-09 13:21:00
+ * @Last Modified time: 2017-05-12 11:21:33
  */
 
 /**
@@ -13,13 +13,15 @@
 var ConfigClass = (function(){
     var default_config = {
         waifu2x_path: Folder.myDocuments.absoluteURI + "/waifu2x-caffe/waifu2x-caffe-cui.exe",
-        maxppi: 200,
-        minppi: 50,
+        max_ppi: 200,
+        min_ppi: 50,
+        need_ppi: 300,
         mode: "auto_scale",
         noise: 0,
         profiles: "upconv_7_anime_style_art_rgb",
         block: 64,
-        processor: "cpu"
+        processor: "cpu",
+        language: "ru"
     }
 
     /**
@@ -37,9 +39,28 @@ var ConfigClass = (function(){
             if (typeof config_json[param] == "undefined") {
                 config_json[param] = default_config[param];
             }
+            if (param == "max_ppi" || param = "min_ppi" || param == "need_ppi") {
+                var ppi = parseInt(config_json[param]);
+                if (isNaN(ppi)) {
+                    ppi = default_config[param];
+                }
+                config_json[param] = ppi;
+            }
+            if (param == "noise") {
+                var noise = parseInt(config_json[param]);
+                if (isNaN(noise) || noise > 4 || noise < 0) {
+                    noise = default_config[param];
+                }
+                config_json[param] = noise;
+            }
             if (param == "processor") {
                 if (config_json[param] != "cpu" && config_json[param] != "gpu") {
-                    config_json[param] = "cpu";
+                    config_json[param] = default_config[param];
+                }
+            }
+            if (param == "language") {
+                if (config_json[param] != "ru" && config_json[param] != "en") {
+                    config_json[param] = default_config[param];
                 }
             }
         }

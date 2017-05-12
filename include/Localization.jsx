@@ -18,5 +18,7 @@
     notfound: { ru: "не найден", en: "not found"},
     batushev: { ru: "Виталий Батушев", en: "Vitaly Batushev" },
     waireplace: { ru: "Вы хотите заново обработать данное изображение?", en: "Do you want to re-process this image?" },
-    attention: { ru: "Внимание!", en: "Attention" }
+    attention: { ru: "Внимание!", en: "Attention" },
+    for_indesign: { ru: " для Adobe InDesign", en: "for Adobe InDesign"},
+    select_waifu: { ru: "Выберите исполняемый файл waifu2x-caffe-cui.exe", en: "Select waifu2x-caffe-cui.exe"}
 }

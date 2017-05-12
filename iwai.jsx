@@ -2,13 +2,13 @@
  * @Author: Vitaly Batushev
  * @Date: 2017-03-23 22:48:53
  * @Last Modified by: Vitaly Batushev
- * @Last Modified time: 2017-05-09 13:26:39
+ * @Last Modified time: 2017-05-12 11:12:10
  */
 #target indesign
 #include "include/json2.jsx"
 $.localization = true;
 
-var scriptVersion = "1.4";
+var scriptVersion = "1.5";
 
 var iWai = (function(){
     #include "include/Localization.jsx"
@@ -26,9 +26,16 @@ var iWai = (function(){
         var quiet = !!quiet || false;
         ConfigClass.read();
         cuipath = File(Config.waifu2x_path);
-        if (!cuipath.exists) { alert("waifu2x-caffe не найден!"); exit(); }
+        if (!cuipath.exists) {
+            //alert("waifu2x-caffe не найден!"); exit();
+            var waifu2x = File.openDialog(_localize(Locale.select_waifu), "waifu2x-caffe-cui.exe", false);
+            if (waifu2x === null) {
+                exit();
+            }
+            Config.waifu2x_path = waifu2x.absoluteURI;
+        }
         if (!quiet) {
-            var dlg = new dlgPreferences("  waifu2x-caffe для Adobe InDesign " + scriptVersion);
+            var dlg = new dlgPreferences("  waifu2x-caffe " + _localize(Locale.for_indesign) + " " + scriptVersion);
         } else {
             ConfigClass.write();
         }
@@ -60,7 +67,7 @@ var iWai = (function(){
     function testImage(image, question) {
         if (image.itemLink.name.indexOf(".wai.") > -1) {
             if (question) {
-                return confirm(localize(Locale.waireplace), false, localize(Locale.attention));
+                return confirm(_localize(Locale.waireplace), false, _localize(Locale.attention));
             } else {
                 return false;
             }
@@ -78,7 +85,7 @@ var iWai = (function(){
             var current = app.activeDocument.allGraphics[a];
             if (current instanceof Image) {
                 var effectivePpi = parseFloat(current.effectivePpi);
-                if (effectivePpi < Config.maxppi && effectivePpi > Config.minppi && current.itemLink.status == LinkStatus.NORMAL) {
+                if (effectivePpi < Config.max_ppi && effectivePpi > Config.min_ppi && current.itemLink.status == LinkStatus.NORMAL) {
                     images.push(current);
                 }
             }
@@ -103,7 +110,7 @@ var iWai = (function(){
      * @param {Image} image     Обрабатываемый объект Image в публикации Adobe InDesign
      */
     function imageProcess(image) {
-        var scale = 300 / parseFloat(image.effectivePpi);
+        var scale = Config.need_ppi / parseFloat(image.effectivePpi);
         var input_file = File(image.itemLink.filePath);
         var extension = getExtension(input_file.absoluteURI);
         var output_file = File(input_file.absoluteURI.replace(RegExp("\." + extension + "$"), ".wai." + extension));
@@ -112,7 +119,10 @@ var iWai = (function(){
         var keys = common_keys + " -s " + scale + " -i " + "\"" + input_file.fsName  + "\"" + " -o " + "\"" + output_file.fsName + "\"";
         var cmd_string = "\"" + cuipath.fsName + "\"" + keys + "\ndel " + "\"" + lock.fsName + "\"\n";
         var cmd_file = File(Folder.temp.fsName + "/wai.cmd");
-        cmd_file.encoding = "CP866";
+        cmd_file.encoding = "UTF8";
+        if ($.os.indexOf("Windows") > -1) {
+            cmd_file.encoding = "CP866";
+        }
         cmd_file.open("w"); cmd_file.write(cmd_string); cmd_file.close();
         cmd_file.execute();
         while (lock.exists) {
@@ -132,6 +142,10 @@ var iWai = (function(){
     function getExtension(file_name) {
         var array = file_name.split(".");
         return array.pop();
+    }
+
+    function _localize(obj) {
+        return obj[Config.language];
     }
 
     return {
